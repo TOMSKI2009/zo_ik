@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ge">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>კატალოგი ყველა ავეჯი — Furniture House Zoik</title>
+<meta name="description" content="Browse our full collection of premium handcrafted furniture. Filter by room: living room, bedroom, dining, office, outdoor.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav scrolled" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-main">Furniture House Zoik</span>
+      <span class="nav-logo-sub">დაარსდა 2008 · პრემიუმ ავეჯი</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">მთავარი</a>
+      <a href="shop.html" class="nav-link active">კატალოგი</a>
+      <a href="about.html" class="nav-link">ჩვენ შესახებ</a>
+      <a href="contact.html" class="nav-link">კონტაქტი</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" aria-label="ძიება" id="searchBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+      <a href="cart.html" class="nav-icon-btn" aria-label="კალათა" id="cartNavBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </a>
+      <div class="lang-switcher">
+        <a href="#" class="lang-btn" data-lang="ge">GE</a>
+        <span class="lang-sep">/</span>
+        <a href="#" class="lang-btn active" data-lang="en">EN</a>
+      </div>
+    </div>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" id="mobileClose">✕</button>
+  <a href="index.html" class="nav-link">მთავარი</a>
+  <a href="shop.html" class="nav-link">კატალოგი</a>
+  <a href="about.html" class="nav-link">ჩვენ შესახებ</a>
+  <a href="contact.html" class="nav-link">კონტაქტი</a>
+  <a href="cart.html" class="nav-link" data-i18n="nav_cart">კალათა</a>
+  <div class="lang-switcher" style="margin-top:20px;border:none;padding:0">
+    <a href="#" class="lang-btn" data-lang="ge" style="color:var(--walnut)">GE</a>
+    <span class="lang-sep" style="color:var(--walnut)">/</span>
+    <a href="#" class="lang-btn active" data-lang="en" style="color:var(--walnut)">EN</a>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="section-title">ჩვენი კოლექცია</h1>
+  <p class="section-subtitle" style="margin:12px auto 0;text-align:center">ხელნაკეთი ნივთები თქვენი სახლის ყველა ოთახისთვის</p>
+  <div class="breadcrumb">
+    <a href="index.html">მთავარი</a>
+    <span>/</span>
+    <span>კატალოგი</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="shop-layout">
+    <!-- SIDEBAR -->
+    <aside class="filter-sidebar">
+      <div class="filter-block">
+        <h3 class="filter-title">კატეგორიები</h3>
+        <div class="filter-options">
+          <label class="filter-option active" data-cat="all">
+            <div class="checkbox-custom"></div>
+            ყველა ავეჯი
+          </label>
+          <label class="filter-option" data-cat="living-room">
+            <div class="checkbox-custom"></div>
+            მისაღები ოთახი
+          </label>
+          <label class="filter-option" data-cat="bedroom">
+            <div class="checkbox-custom"></div>
+            საძინებელი
+          </label>
+          <label class="filter-option" data-cat="dining">
+            <div class="checkbox-custom"></div>
+            სასადილო
+          </label>
+          <label class="filter-option" data-cat="office">
+            <div class="checkbox-custom"></div>
+            ოფისი
+          </label>
+          <label class="filter-option" data-cat="outdoor">
+            <div class="checkbox-custom"></div>
+            ეზო
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <h3 class="filter-title">ფასის დიაპაზონი</h3>
+        <div class="price-range">
+          <div class="price-range-display">
+            <span>$0</span><span id="priceDisplay">$2,500</span>
+          </div>
+          <input type="range" id="priceRange" min="0" max="3000" value="3000" step="50">
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <h3 class="filter-title">მასალა</h3>
+        <div class="filter-options">
+          <label class="filter-option active"><div class="checkbox-custom"></div>ყველა მასალა</label>
+          <label class="filter-option"><div class="checkbox-custom"></div>მასიური ხე</label>
+          <label class="filter-option"><div class="checkbox-custom"></div>ტყავი</label>
+          <label class="filter-option"><div class="checkbox-custom"></div>ქსოვილი / სელი</label>
+          <label class="filter-option"><div class="checkbox-custom"></div>მარმარილო</label>
+          <label class="filter-option"><div class="checkbox-custom"></div>ტიკი / ეზოსთვის</label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="applyFilters()">ფილტრის გამოყენება</button>
+      <button class="btn btn-outline" style="width:100%;margin-top:10px" onclick="resetFilters()">გასუფთავება</button>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <main>
+      <div class="shop-topbar">
+        <p class="shop-count" id="shopCount">ნაჩვენებია <strong>10</strong> პროდუქტი</p>
+        <div class="shop-sort">
+          <span class="sort-label">დახარისხება:</span>
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="featured">რეკომენდებული</option>
+            <option value="price-asc">ფასი: ზრდადობით</option>
+            <option value="price-desc">ფასი: კლებადობით</option>
+            <option value="name-asc">სახელი A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="category-tabs" id="categoryTabs">
+        <button class="cat-tab active" data-cat="all">ყველა</button>
+        <button class="cat-tab" data-cat="living-room">მისაღები ოთახი</button>
+        <button class="cat-tab" data-cat="bedroom">საძინებელი</button>
+        <button class="cat-tab" data-cat="dining">სასადილო</button>
+        <button class="cat-tab" data-cat="office">ოფისი</button>
+        <button class="cat-tab" data-cat="outdoor">ეზო</button>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        
+<div class="product-card fade-up" data-category="living-room" data-price="899">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-best">ბესტსელერი</span>
+    <img src="img_chair.jpg" alt="სკანდინავიური სავარძელი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p01','სკანდინავიური სავარძელი',899,'img_chair.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p01" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p01">სკანდინავიური სავარძელი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$899</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="living-room" data-price="649">
+  <div class="product-img-wrap">
+    
+    <img src="img_coffee.jpg" alt="კაკლის ყავის მაგიდა" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p02','კაკლის ყავის მაგიდა',649,'img_coffee.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p02" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p02">კაკლის ყავის მაგიდა</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$649</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="living-room" data-price="2499">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-new">ახალი</span>
+    <img src="img_sofa.jpg" alt="Haven კუთხის დივანი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p03','Haven კუთხის დივანი',2499,'img_sofa.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p03" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p03">Haven კუთხის დივანი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$2,499</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="dining" data-price="1899">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-best">ბესტსელერი</span>
+    <img src="img_dining.jpg" alt="მარმარილოს სასადილო მაგიდა" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p04','მარმარილოს სასადილო მაგიდა',1899,'img_dining.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p04" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">dining</div>
+    <h3 class="product-name"><a href="product.html?id=p04">მარმარილოს სასადილო მაგიდა</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$1,899</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="bedroom" data-price="1299">
+  <div class="product-img-wrap">
+    
+    <img src="img_bed.jpg" alt="მუხის საწოლი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p05','მუხის საწოლი',1299,'img_bed.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p05" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">bedroom</div>
+    <h3 class="product-name"><a href="product.html?id=p05">მუხის საწოლი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$1,299</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="office" data-price="899">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-new">ახალი</span>
+    <img src="img_desk.jpg" alt="კაკლის საოფისე მაგიდა" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p06','კაკლის საოფისე მაგიდა',899,'img_desk.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p06" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">office</div>
+    <h3 class="product-name"><a href="product.html?id=p06">კაკლის საოფისე მაგიდა</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$899</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="living-room" data-price="749">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-sale">ფასდაკლება</span>
+    <img src="img_velvet.jpg" alt="ზურმუხტისფერი ხავერდის სავარძელი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p07','ზურმუხტისფერი ხავერდის სავარძელი',749,'img_velvet.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p07" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p07">ზურმუხტისფერი ხავერდის სავარძელი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$749</span>
+      <span class="product-price-old">$999</span>
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="outdoor" data-price="1199">
+  <div class="product-img-wrap">
+    
+    <img src="img_outdoor.jpg" alt="ტიკის ბაღის სავარძელი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p08','ტიკის ბაღის სავარძელი',1199,'img_outdoor.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p08" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">outdoor</div>
+    <h3 class="product-name"><a href="product.html?id=p08">ტიკის ბაღის სავარძელი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$1,199</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="living-room" data-price="549">
+  <div class="product-img-wrap">
+    
+    <img src="img_bookshelf.jpg" alt="Bronte წიგნების თარო" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p09','Bronte წიგნების თარო',549,'img_bookshelf.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p09" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p09">Bronte წიგნების თარო</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$549</span>
+      
+    </div>
+  </div>
+</div>
+<div class="product-card fade-up" data-category="living-room" data-price="1099">
+  <div class="product-img-wrap">
+    <span class="product-badge badge-best">ბესტსელერი</span>
+    <img src="img_leather.jpg" alt="ტყავის სავარძელი" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('p10','ტყავის სავარძელი',1099,'img_leather.jpg')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        კალათაში დამატება
+      </button>
+      <a href="product.html?id=p10" class="btn btn-outline-cream btn-sm">დეტალების ნახვა</a>
+    </div>
+    <button class="product-wishlist" aria-label="Add to wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">living room</div>
+    <h3 class="product-name"><a href="product.html?id=p10">ტყავის სავარძელი</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$1,099</span>
+      
+    </div>
+  </div>
+</div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Furniture House Zoik</div>
+        <div class="footer-brand-tag">პრემიუმ ავეჯი 2008 წლიდან</div>
+        <p class="footer-desc">ვქმნით სივრცეებს, სადაც თავს სახლში იგრძნობთ. თითოეული ნივთი იქმნება ზრუნვით, რათა დიდხანს გემსახუროთ.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.28-5.43 1.28-5.43s-.33-.65-.33-1.62c0-1.52.88-2.66 1.98-2.66.93 0 1.39.7 1.39 1.54 0 .94-.6 2.34-.9 3.64-.26 1.08.54 1.97 1.6 1.97 1.91 0 3.19-2.43 3.19-5.3 0-2.19-1.48-3.73-3.6-3.73-2.45 0-3.89 1.84-3.89 3.74 0 .74.28 1.54.64 1.97a.26.26 0 01.06.25c-.07.27-.22.86-.25.98-.04.16-.13.2-.3.12-1.12-.52-1.82-2.17-1.82-3.49 0-2.83 2.06-5.43 5.93-5.43 3.11 0 5.53 2.22 5.53 5.18 0 3.09-1.95 5.57-4.65 5.57-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.36.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter/X">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">სწრაფი ბმულები</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="shop.html">ყველა პროდუქტი</a></li>
+          <li><a href="about.html">ჩვენი ისტორია</a></li>
+          <li><a href="contact.html">კონტაქტი</a></li>
+          <li><a href="cart.html">კალათა და გადახდა</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">კატეგორიები</h4>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=living-room">მისაღები ოთახი</a></li>
+          <li><a href="shop.html?cat=bedroom">საძინებელი</a></li>
+          <li><a href="shop.html?cat=dining">სასადილო</a></li>
+          <li><a href="shop.html?cat=office">ოფისი</a></li>
+          <li><a href="shop.html?cat=outdoor">ეზო</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4 class="footer-heading">კონტაქტი</h4>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </i>
+          48 Craftsman Lane, Design District<br>ნიუ-იორკი, NY 10001
+        </p>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </i>
+          +1 (800) ZO-IK-001
+        </p>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </i>
+          hello@furniturehousezoik.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Furniture House Zoik. ყველა უფლება დაცულია.</p>
+      <div class="footer-payment">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">AMEX</span>
+        <span class="payment-icon">PAYPAL</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toastMsg">Item added to cart</span></div>
+<script>
+
+// Nav scroll
+const nav = document.getElementById('mainNav');
+if(nav){
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+}
+// Mobile menu
+const mToggle = document.getElementById('mobileToggle');
+const mMenu = document.getElementById('mobileMenu');
+const mClose = document.getElementById('mobileClose');
+if(mToggle) mToggle.addEventListener('click', ()=> mMenu.classList.add('open'));
+if(mClose) mClose.addEventListener('click', ()=> mMenu.classList.remove('open'));
+
+// კალათა count from localStorage
+function updateCartCount(){
+  const cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const total = cart.reduce((s,i)=>s+(i.qty||1),0);
+  document.querySelectorAll('#cartCount').forEach(el=>el.textContent=total);
+}
+updateCartCount();
+
+// Add to cart
+function addToCart(id, name, price, img){
+  let cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const existing = cart.find(i=>i.id===id);
+  if(existing){ existing.qty=(existing.qty||1)+1; }
+  else { cart.push({id,name,price,img,qty:1}); }
+  localStorage.setItem('fhz_cart', JSON.stringify(cart));
+  updateCartCount();
+  showToast(name+' added to cart');
+}
+
+// Toast
+function showToast(msg){
+  const t = document.getElementById('toast');
+  const tm = document.getElementById('toastMsg');
+  if(!t) return;
+  tm.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// Fade-up observer
+const fads = document.querySelectorAll('.fade-up');
+if(fads.length){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.15});
+  fads.forEach(el=>obs.observe(el));
+}
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(h=>{
+  h.addEventListener('click', ()=>{
+    const item = h.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+const allProducts = [{"id":"p01","name":"სკანდინავიური სავარძელი","category":"living-room","price":899,"img":"chair","badge":"best","desc":"ერგონომიული სავარძელი კარამელისფერ პრემიუმ ტყავში, კაკლის ფეხებით. დროული და გამორჩეული ნივთი."},{"id":"p02","name":"კაკლის ყავის მაგიდა","category":"living-room","price":649,"img":"coffee","badge":"","desc":"მასიური კაკლის ზედაპირი რკინის ფეხებით. ბუნებრივი ხის ფაქტურა თითოეულ ნივთს უნიკალურს ხდის."},{"id":"p03","name":"Haven კუთხის დივანი","category":"living-room","price":2499,"img":"sofa","badge":"new","desc":"დიდი ზომის კუთხის დივანი ბელგიურ სელში. ღრმა ბალიშები იდეალური დასვენებისთვის."},{"id":"p04","name":"მარმარილოს სასადილო მაგიდა","category":"dining","price":1899,"img":"dining","badge":"best","desc":"მრგვალი კალაკატას მარმარილოს ზედაპირი თითბერის ბაზით და 6 ხავერდის სკამით."},{"id":"p05","name":"მუხის საწოლი","category":"bedroom","price":1299,"img":"bed","badge":"","desc":"დაბალი პროფილის მუხის საწოლი სელის თავით. შემოაქვს სიმშვიდე და ელეგანტურობა საძინებელში."},{"id":"p06","name":"კაკლის საოფისე მაგიდა","category":"office","price":899,"img":"desk","badge":"new","desc":"მუქი კაკლის ზედაპირი ფოლადის ჩარჩოთი. დიდი სამუშაო სივრცე დახვეწილი დიზაინით."},{"id":"p07","name":"ზურმუხტისფერი ხავერდის სავარძელი","category":"living-room","price":749,"img":"velvet","badge":"sale","oldPrice":999,"desc":"ხავერდის სავარძელი ოქროსფერი ფეხებით. თვალისმომჭრელი დეტალი თქვენი მისაღებისთვის."},{"id":"p08","name":"ტიკის ბაღის სავარძელი","category":"outdoor","price":1199,"img":"outdoor","badge":"","desc":"უმაღლესი ხარისხის ტიკის სავარძელი წყალგამძლე ბალიშებით."},{"id":"p09","name":"Bronte წიგნების თარო","category":"living-room","price":549,"img":"bookshelf","badge":"","desc":"მასიური მუხის ღია თაროები თითბერის დეტალებით. 6 დონე წიგნებისა და დეკორისთვის."},{"id":"p10","name":"ტყავის სავარძელი","category":"living-room","price":1099,"img":"leather","badge":"best","desc":"ნატურალური კონიაკისფერი ტყავი კლასიკური დეტალებით. შემოაქვს სითბო ნებისმიერ ოთახში."}];
+const imgMapJS = {"hero":"img_hero.jpg","chair":"img_chair.jpg","coffee":"img_coffee.jpg","sofa":"img_sofa.jpg","dining":"img_dining.jpg","bed":"img_bed.jpg","desk":"img_desk.jpg","velvet":"img_velvet.jpg","outdoor":"img_outdoor.jpg","bookshelf":"img_bookshelf.jpg","workshop":"img_workshop.jpg","leather":"img_leather.jpg"};
+
+let activeCat = 'all';
+let maxPrice = 3000;
+
+// Cat tabs
+document.querySelectorAll('.cat-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    activeCat = tab.dataset.cat;
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    // sync sidebar
+    document.querySelectorAll('.filter-option[data-cat]').forEach(o=>{
+      o.classList.toggle('active', o.dataset.cat===activeCat);
+    });
+    applyFilters();
+  });
+});
+
+// Sidebar filter options
+document.querySelectorAll('.filter-option[data-cat]').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    activeCat = opt.dataset.cat;
+    document.querySelectorAll('.filter-option[data-cat]').forEach(o=>o.classList.remove('active'));
+    opt.classList.add('active');
+    document.querySelectorAll('.cat-tab').forEach(t=>{
+      t.classList.toggle('active', t.dataset.cat===activeCat);
+    });
+    applyFilters();
+  });
+});
+
+// Price range
+const priceRange = document.getElementById('priceRange');
+const priceDisplay = document.getElementById('priceDisplay');
+priceRange.addEventListener('input', ()=>{
+  maxPrice = parseInt(priceRange.value);
+  priceDisplay.textContent = '$' + maxPrice.toLocaleString();
+  const pct = (maxPrice/3000)*100;
+  priceRange.style.background = `linear-gradient(to right,var(--walnut) 0%,var(--walnut) ${pct}%,var(--beige-dark) ${pct}%)`;
+});
+
+function applyFilters(){
+  const sort = document.getElementById('sortSelect').value;
+  let filtered = allProducts.filter(p=>{
+    const catOk = activeCat==='all' || p.category===activeCat;
+    const priceOk = p.price <= maxPrice;
+    return catOk && priceOk;
+  });
+  if(sort==='price-asc') filtered.sort((a,b)=>a.price-b.price);
+  else if(sort==='price-desc') filtered.sort((a,b)=>b.price-a.price);
+  else if(sort==='name-asc') filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  renderProducts(filtered);
+}
+
+function renderProducts(prods){
+  const grid = document.getElementById('productsGrid');
+  const isEn = (localStorage.getItem('fhz_lang') || 'ge') === 'en';
+  document.getElementById('shopCount').innerHTML = isEn 
+    ? ('Showing <strong>'+prods.length+'</strong> products')
+    : ('ნაჩვენებია <strong>'+prods.length+'</strong> პროდუქტი');
+  grid.innerHTML = prods.map(p=>{
+    const pName = isEn ? (window.translationsGE?.[p.name] || p.name) : p.name;
+    const catRaw = p.category.replace('-',' ');
+    const pCat = isEn 
+      ? (window.translationsGE?.[catRaw] || (catRaw === 'living room' ? 'Living Room' : catRaw.charAt(0).toUpperCase() + catRaw.slice(1))) 
+      : (window.translationsEN?.[catRaw] || (catRaw === 'living room' ? 'მისაღები ოთახი' : catRaw));
+    const badgeText = p.badge ? (
+      isEn 
+        ? (p.badge==='best'?'Bestseller':p.badge==='new'?'New':'Sale')
+        : (p.badge==='best'?'ბესტსელერი':p.badge==='new'?'ახალი':'ფასდაკლება')
+    ) : '';
+    const addText = isEn ? 'Add to Cart' : 'კალათაში დამატება';
+    const viewText = isEn ? 'View Details' : 'დეტალების ნახვა';
+    return `
+<div class="product-card fade-up" data-category="${p.category}">
+  <div class="product-img-wrap">
+    ${p.badge?'<span class="product-badge badge-'+(p.badge==='best'?'best':p.badge==='new'?'new':'sale')+'">'+badgeText+'</span>':''}
+    <img src="${imgMapJS[p.img]}" alt="${pName}" loading="lazy">
+    <div class="product-actions-overlay">
+      <button class="btn btn-gold btn-sm" onclick="addToCart('${p.id}','${p.name}',${p.price},'${imgMapJS[p.img]}')">${addText}</button>
+      <a href="product.html?id=${p.id}" class="btn btn-outline-cream btn-sm">${viewText}</a>
+    </div>
+    <button class="product-wishlist">♡</button>
+  </div>
+  <div class="product-info">
+    <div class="product-category">${pCat}</div>
+    <h3 class="product-name"><a href="product.html?id=${p.id}">${pName}</a></h3>
+    <div class="product-price-row">
+      <span class="product-price">$${p.price.toLocaleString()}</span>
+      ${p.oldPrice?'<span class="product-price-old">$'+p.oldPrice.toLocaleString()+'</span>':''}
+    </div>
+  </div>
+</div>`;
+  }).join('');
+  // re-observe fade-ups
+  document.querySelectorAll('.fade-up:not(.visible)').forEach(el=>{
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+    },{threshold:0.1});
+    obs.observe(el);
+    setTimeout(()=>el.classList.add('visible'),100);
+  });
+}
+
+window.onLanguageChange = function(lang) {
+  applyFilters();
+};
+
+function resetFilters(){
+  activeCat='all';
+  maxPrice=3000;
+  priceRange.value=3000;
+  priceDisplay.textContent='$3,000';
+  priceRange.style.background='';
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat==='all'));
+  document.querySelectorAll('.filter-option[data-cat]').forEach(o=>o.classList.toggle('active',o.dataset.cat==='all'));
+  document.getElementById('sortSelect').value='featured';
+  applyFilters();
+}
+
+// Check URL param
+const urlCat = new URLSearchParams(window.location.search).get('cat');
+if(urlCat){
+  activeCat=urlCat;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===urlCat));
+  document.querySelectorAll('.filter-option[data-cat]').forEach(o=>o.classList.toggle('active',o.dataset.cat===urlCat));
+  applyFilters();
+}
+</script>
+
+<script src="translations.js"></script>
+<script src="lang.js"></script>
+</body>
+</html>

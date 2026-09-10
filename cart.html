@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ge">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>კალათა და გადახდა — Furniture House Zoik</title>
+<meta name="description" content="გადაამოწმეთ კალათა და დაასრულეთ შეკვეთა. უფასო მიწოდება 500$-ის ზემოთ.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav scrolled" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-main">Furniture House Zoik</span>
+      <span class="nav-logo-sub">დაარსდა 2008 · პრემიუმ ავეჯი</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">მთავარი</a>
+      <a href="shop.html" class="nav-link active">კატალოგი</a>
+      <a href="about.html" class="nav-link">ჩვენ შესახებ</a>
+      <a href="contact.html" class="nav-link">კონტაქტი</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" aria-label="ძიება" id="searchBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+      <a href="cart.html" class="nav-icon-btn" aria-label="კალათა" id="cartNavBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </a>
+      <div class="lang-switcher">
+        <a href="#" class="lang-btn" data-lang="ge">GE</a>
+        <span class="lang-sep">/</span>
+        <a href="#" class="lang-btn active" data-lang="en">EN</a>
+      </div>
+    </div>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" id="mobileClose">✕</button>
+  <a href="index.html" class="nav-link">მთავარი</a>
+  <a href="shop.html" class="nav-link">კატალოგი</a>
+  <a href="about.html" class="nav-link">ჩვენ შესახებ</a>
+  <a href="contact.html" class="nav-link">კონტაქტი</a>
+  <a href="cart.html" class="nav-link" data-i18n="nav_cart">კალათა</a>
+  <div class="lang-switcher" style="margin-top:20px;border:none;padding:0">
+    <a href="#" class="lang-btn" data-lang="ge" style="color:var(--walnut)">GE</a>
+    <span class="lang-sep" style="color:var(--walnut)">/</span>
+    <a href="#" class="lang-btn active" data-lang="en" style="color:var(--walnut)">EN</a>
+  </div>
+</div>
+
+<section class="cart-section">
+  <div class="container">
+    <!-- CHECKOUT STEPS -->
+    <div class="checkout-steps">
+      <div class="step active">
+        <div class="step-num">1</div>
+        კალათა
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step2">
+        <div class="step-num">2</div>
+        მიწოდება
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step3">
+        <div class="step-num">3</div>
+        გადახდა
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step4">
+        <div class="step-num">4</div>
+        დადასტურება
+      </div>
+    </div>
+
+    <div class="cart-layout" id="cartView">
+      <!-- CART ITEMS -->
+      <div>
+        <h1 class="cart-title" id="cartHeading">თქვენი კალათა (2 items)</h1>
+        <div id="cartItems"></div>
+        <div style="margin-top:24px">
+          <a href="shop.html" style="font-size:.85rem;color:var(--walnut);text-decoration:underline;display:inline-flex;align-items:center;gap:6px">
+            ← ყიდვის გაგრძელება
+          </a>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary">
+        <h2 class="summary-title">შეკვეთის შეჯამება</h2>
+
+        <div class="summary-row">
+          <span>ჯამი (მიწოდების გარეშე)</span>
+          <span id="subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+          <span>მიწოდება</span>
+          <span id="shipping">უფასო</span>
+        </div>
+        <div class="summary-row">
+          <span>გადასახადი (8.875%)</span>
+          <span id="tax">$0</span>
+        </div>
+        <div class="summary-row">
+          <span style="color:var(--sage)">პრომო კოდი</span>
+          <span id="discount" style="color:var(--sage)">–$0</span>
+        </div>
+        <div class="summary-total">
+          <span>სულ ჯამი</span>
+          <span id="totalPrice">$0</span>
+        </div>
+
+        <div style="margin:28px 0 16px">
+          <div class="promo-input-wrap">
+            <input type="text" class="promo-input" placeholder="Promo code" id="promoCode">
+            <button class="promo-btn" onclick="applyPromo()">გამოყენება</button>
+          </div>
+        </div>
+
+        <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center" onclick="proceedToCheckout()" id="checkoutBtn">
+          გადახდაზე გადასვლა
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="secure-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          უსაფრთხო გადახდა · SSL დაშიფრული
+        </div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--beige-dark)">
+          <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:flex-start;gap:8px">
+            <span style="color:var(--sage);font-size:1rem">✓</span>
+            უფასო მიწოდება 500$-ზე მეტ შეკვეთებზე
+          </div>
+          <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:flex-start;gap:8px;margin-top:8px">
+            <span style="color:var(--sage);font-size:1rem">✓</span>
+            30-დღიანი უფასო დაბრუნება
+          </div>
+          <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:flex-start;gap:8px;margin-top:8px">
+            <span style="color:var(--sage);font-size:1rem">✓</span>
+            სამუდამო გარანტია ყველა პროდუქტზე
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKOUT FORM (hidden initially) -->
+    <div id="checkoutForm" style="display:none">
+      <div style="max-width:700px;margin:0 auto">
+        <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--walnut);margin-bottom:36px">მიწოდება & გადახდა</h2>
+
+        <div style="background:var(--cream-dark);border-radius:var(--radius-md);padding:36px;margin-bottom:32px">
+          <h3 style="font-family:var(--font-serif);font-size:1.2rem;color:var(--walnut);margin-bottom:24px">ინფორმაცია მიწოდებაზე</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">სახელი</label>
+              <input type="text" class="form-control" placeholder="First name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">გვარი</label>
+              <input type="text" class="form-control" placeholder="Last name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ქუჩის მისამართი</label>
+            <input type="text" class="form-control" placeholder="123 Main Street, Apt 4B">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ქალაქი</label>
+              <input type="text" class="form-control" placeholder="ნიუ-იორკი">
+            </div>
+            <div class="form-group">
+              <label class="form-label">საფოსტო ინდექსი</label>
+              <input type="text" class="form-control" placeholder="10001">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ელ. ფოსტა</label>
+            <input type="email" class="form-control" placeholder="your@email.com">
+          </div>
+        </div>
+
+        <div style="background:var(--cream-dark);border-radius:var(--radius-md);padding:36px;margin-bottom:32px">
+          <h3 style="font-family:var(--font-serif);font-size:1.2rem;color:var(--walnut);margin-bottom:24px">გადახდის დეტალები</h3>
+          <div class="form-group">
+            <label class="form-label">ბარათის ნომერი</label>
+            <input type="text" class="form-control" placeholder="•••• •••• •••• ••••">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">მოქმედების ვადა</label>
+              <input type="text" class="form-control" placeholder="MM / YY">
+            </div>
+            <div class="form-group">
+              <label class="form-label">CVV</label>
+              <input type="text" class="form-control" placeholder="•••">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">სახელი ბარათზე</label>
+            <input type="text" class="form-control" placeholder="Marcus Johnson">
+          </div>
+        </div>
+
+        <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center" onclick="placeOrder()">
+          შეკვეთის გაფორმება · <span id="checkoutTotal">$0</span>
+        </button>
+        <div style="text-align:center;margin-top:12px">
+          <button style="font-size:.85rem;color:var(--walnut);text-decoration:underline;background:none;border:none;cursor:pointer" onclick="backToCart()">← კალათაში დაბრუნება</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION (hidden initially) -->
+    <div id="confirmationView" style="display:none;text-align:center;padding:80px 0">
+      <div style="font-size:4rem;margin-bottom:24px">🎉</div>
+      <h2 style="font-family:var(--font-serif);font-size:2.5rem;color:var(--walnut);margin-bottom:16px">შეკვეთა დადასტურებულია!</h2>
+      <p style="color:var(--text-muted);max-width:480px;margin:0 auto 16px;line-height:1.7">მადლობა შეკვეთისთვის. თქვენ მიიღებთ დასტურს ელ. ფოსტაზე შეკვეთის დეტალებით.</p>
+      <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:40px">Order #FHZ-<strong id="orderNum"></strong></p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="shop.html" class="btn btn-primary">ყიდვის გაგრძელება</a>
+        <a href="index.html" class="btn btn-outline">მთავარ გვერდზე დაბრუნება</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Furniture House Zoik</div>
+        <div class="footer-brand-tag">პრემიუმ ავეჯი 2008 წლიდან</div>
+        <p class="footer-desc">ვქმნით სივრცეებს, სადაც თავს სახლში იგრძნობთ. თითოეული ნივთი იქმნება ზრუნვით, რათა დიდხანს გემსახუროთ.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.28-5.43 1.28-5.43s-.33-.65-.33-1.62c0-1.52.88-2.66 1.98-2.66.93 0 1.39.7 1.39 1.54 0 .94-.6 2.34-.9 3.64-.26 1.08.54 1.97 1.6 1.97 1.91 0 3.19-2.43 3.19-5.3 0-2.19-1.48-3.73-3.6-3.73-2.45 0-3.89 1.84-3.89 3.74 0 .74.28 1.54.64 1.97a.26.26 0 01.06.25c-.07.27-.22.86-.25.98-.04.16-.13.2-.3.12-1.12-.52-1.82-2.17-1.82-3.49 0-2.83 2.06-5.43 5.93-5.43 3.11 0 5.53 2.22 5.53 5.18 0 3.09-1.95 5.57-4.65 5.57-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.36.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter/X">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">სწრაფი ბმულები</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="shop.html">ყველა პროდუქტი</a></li>
+          <li><a href="about.html">ჩვენი ისტორია</a></li>
+          <li><a href="contact.html">კონტაქტი</a></li>
+          <li><a href="cart.html">კალათა და გადახდა</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">კატეგორიები</h4>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=living-room">მისაღები ოთახი</a></li>
+          <li><a href="shop.html?cat=bedroom">საძინებელი</a></li>
+          <li><a href="shop.html?cat=dining">სასადილო</a></li>
+          <li><a href="shop.html?cat=office">ოფისი</a></li>
+          <li><a href="shop.html?cat=outdoor">ეზო</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4 class="footer-heading">კონტაქტი</h4>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </i>
+          48 Craftsman Lane, Design District<br>ნიუ-იორკი, NY 10001
+        </p>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </i>
+          +1 (800) ZO-IK-001
+        </p>
+        <p>
+          <i>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </i>
+          hello@furniturehousezoik.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Furniture House Zoik. ყველა უფლება დაცულია.</p>
+      <div class="footer-payment">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">AMEX</span>
+        <span class="payment-icon">PAYPAL</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toastMsg">Item added to cart</span></div>
+<script>
+
+// Nav scroll
+const nav = document.getElementById('mainNav');
+if(nav){
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+}
+// Mobile menu
+const mToggle = document.getElementById('mobileToggle');
+const mMenu = document.getElementById('mobileMenu');
+const mClose = document.getElementById('mobileClose');
+if(mToggle) mToggle.addEventListener('click', ()=> mMenu.classList.add('open'));
+if(mClose) mClose.addEventListener('click', ()=> mMenu.classList.remove('open'));
+
+// კალათა count from localStorage
+function updateCartCount(){
+  const cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const total = cart.reduce((s,i)=>s+(i.qty||1),0);
+  document.querySelectorAll('#cartCount').forEach(el=>el.textContent=total);
+}
+updateCartCount();
+
+// Add to cart
+function addToCart(id, name, price, img){
+  let cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const existing = cart.find(i=>i.id===id);
+  if(existing){ existing.qty=(existing.qty||1)+1; }
+  else { cart.push({id,name,price,img,qty:1}); }
+  localStorage.setItem('fhz_cart', JSON.stringify(cart));
+  updateCartCount();
+  showToast(name+' added to cart');
+}
+
+// Toast
+function showToast(msg){
+  const t = document.getElementById('toast');
+  const tm = document.getElementById('toastMsg');
+  if(!t) return;
+  tm.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// Fade-up observer
+const fads = document.querySelectorAll('.fade-up');
+if(fads.length){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.15});
+  fads.forEach(el=>obs.observe(el));
+}
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(h=>{
+  h.addEventListener('click', ()=>{
+    const item = h.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+const imgMapJS = {"hero":"img_hero.jpg","chair":"img_chair.jpg","coffee":"img_coffee.jpg","sofa":"img_sofa.jpg","dining":"img_dining.jpg","bed":"img_bed.jpg","desk":"img_desk.jpg","velvet":"img_velvet.jpg","outdoor":"img_outdoor.jpg","bookshelf":"img_bookshelf.jpg","workshop":"img_workshop.jpg","leather":"img_leather.jpg"};
+let promoApplied = false;
+
+function renderCart(){
+  const isEn = (localStorage.getItem('fhz_lang') || 'ge') === 'en';
+  const cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const heading = document.getElementById('cartHeading');
+  const items = document.getElementById('cartItems');
+  const total = cart.reduce((s,i)=>s+(i.price*(i.qty||1)),0);
+  const tax = total * 0.08875;
+  const discount = promoApplied ? total * 0.1 : 0;
+  const finalTotal = total + tax - discount;
+
+  const itemWord = isEn ? (cart.length === 1 ? 'item' : 'items') : 'ნივთი';
+  const headingTitle = isEn ? 'Your Cart' : 'თქვენი კალათა';
+  heading.textContent = headingTitle + ' (' + cart.length + ' ' + itemWord + ')';
+
+  if(cart.length===0){
+    const emptyMsg = isEn ? 'Your cart is empty' : 'თქვენი კალათა ცარიელია';
+    const startShop = isEn ? 'Start Shopping' : 'ყიდვის დაწყება';
+    items.innerHTML = '<div style="text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:16px">🛒</div><p style="color:var(--text-muted);margin-bottom:24px">'+emptyMsg+'</p><a href="shop.html" class="btn btn-primary">'+startShop+'</a></div>';
+    document.getElementById('checkoutBtn').disabled = true;
+  } else {
+    const metaText = isEn ? 'In Stock · Ships in 4–6 weeks' : 'მარაგშია · გაიგზავნება 4-6 კვირაში';
+    const removeText = isEn ? 'Remove' : 'წაშლა';
+    items.innerHTML = cart.map(item=>{
+      const itName = isEn ? (window.translationsGE?.[item.name] || item.name) : item.name;
+      return `
+<div class="cart-item" id="cart-${item.id}">
+  <div class="cart-item-img">
+    <img src="${imgMapJS[item.img?.replace('img_','')?.replace('.jpg','')] || item.img}" alt="${itName}" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <div class="cart-item-info">
+    <div class="cart-item-name">${itName}</div>
+    <div class="cart-item-meta">${metaText}</div>
+    <div class="cart-item-controls">
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="updateQty('${item.id}',-1)">−</button>
+        <input type="number" class="qty-input" value="${item.qty||1}" min="1" max="10" onchange="setQty('${item.id}',this.value)" style="width:50px">
+        <button class="qty-btn" onclick="updateQty('${item.id}',1)">+</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <span class="cart-item-price">$${((item.price)*(item.qty||1)).toLocaleString()}</span>
+        <button class="cart-item-remove" onclick="removeItem('${item.id}')">${removeText}</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    }).join('');
+  }
+
+  const freeShippingText = isEn ? 'Free' : 'უფასო';
+  document.getElementById('subtotal').textContent = '$'+total.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('shipping').textContent = total >= 500 ? freeShippingText : '$99.00';
+  document.getElementById('tax').textContent = '$'+tax.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('discount').textContent = promoApplied ? '-$'+discount.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '-$0.00';
+  const ftotal = total>=500 ? finalTotal : finalTotal+99;
+  document.getElementById('totalPrice').textContent = '$'+ftotal.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('checkoutTotal').textContent = '$'+ftotal.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+window.onLanguageChange = function(lang) {
+  renderCart();
+};
+
+function updateQty(id, delta){
+  let cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const item = cart.find(i=>i.id===id);
+  if(item){ item.qty = Math.max(1, Math.min(10, (item.qty||1)+delta)); }
+  localStorage.setItem('fhz_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function setQty(id, val){
+  let cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  const item = cart.find(i=>i.id===id);
+  if(item){ item.qty = Math.max(1, Math.min(10, parseInt(val)||1)); }
+  localStorage.setItem('fhz_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function removeItem(id){
+  let cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  cart = cart.filter(i=>i.id!==id);
+  localStorage.setItem('fhz_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function applyPromo(){
+  const code = document.getElementById('promoCode').value.trim().toUpperCase();
+  if(code==='ZOIK10'||code==='WELCOME'){
+    promoApplied=true;
+    showToast('Promo code applied! 10% off');
+    renderCart();
+  } else {
+    showToast('Invalid promo code. Try ZOIK10!');
+  }
+}
+
+function proceedToCheckout(){
+  const cart = JSON.parse(localStorage.getItem('fhz_cart')||'[]');
+  if(!cart.length){ showToast('თქვენი კალათა ცარიელია'); return; }
+  document.getElementById('cartView').style.display='none';
+  document.getElementById('checkoutForm').style.display='block';
+  document.querySelector('.step:nth-child(1)').classList.remove('active');
+  document.querySelector('.step:nth-child(1)').classList.add('done');
+  document.getElementById('step2').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backToCart(){
+  document.getElementById('cartView').style.display='grid';
+  document.getElementById('checkoutForm').style.display='none';
+  document.querySelector('.step:nth-child(1)').classList.add('active');
+  document.querySelector('.step:nth-child(1)').classList.remove('done');
+  document.getElementById('step2').classList.remove('active');
+}
+
+function placeOrder(){
+  document.getElementById('checkoutForm').style.display='none';
+  document.getElementById('confirmationView').style.display='block';
+  document.getElementById('orderNum').textContent = Math.floor(100000+Math.random()*900000);
+  document.getElementById('step2').classList.add('done');
+  document.getElementById('step3').classList.add('done');
+  document.getElementById('step4').classList.add('active','done');
+  localStorage.removeItem('fhz_cart');
+  updateCartCount();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Pre-populate cart if empty (demo)
+if(!localStorage.getItem('fhz_cart')){
+  const demo = [
+    {id:'p01',name:'სკანდინავიური სავარძელი',price:899,img:'img_chair.jpg',qty:1},
+    {id:'p03',name:'Haven კუთხის დივანი',price:2499,img:'img_sofa.jpg',qty:1},
+  ];
+  localStorage.setItem('fhz_cart', JSON.stringify(demo));
+}
+
+renderCart();
+</script>
+
+<script src="translations.js"></script>
+<script src="lang.js"></script>
+</body>
+</html>
