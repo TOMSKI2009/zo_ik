@@ -476,10 +476,14 @@
           <p class="newsletter-sub">გამოიწერეთ ექსკლუზიური შეთავაზებები, ახალი კოლექციები, ინტერიერის დიზაინის რჩევები და ფასდაკლებები.</p>
         </div>
         <div>
-          <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
-            <input type="email" class="newsletter-input" placeholder="თქვენი ელ. ფოსტა" id="newsletterEmail" required>
-            <button type="submit" class="newsletter-btn">გამოწერა</button>
+          <form class="newsletter-form" id="newsletterForm" action="https://formspree.io/f/mzeborek" method="POST" onsubmit="return handleNewsletter(event)">
+            <input type="hidden" name="_subject" value="Newsletter Subscription — Furniture House Zoik">
+            <input type="email" class="newsletter-input" name="email" placeholder="თქვენი ელ. ფოსტა" id="newsletterEmail" required>
+            <button type="submit" class="newsletter-btn" id="newsletterBtn">
+              <span id="newsletterBtnText">გამოწერა</span>
+            </button>
           </form>
+          <div id="newsletterStatus" style="display:none;font-size:.85rem;color:var(--gold-light);margin-top:10px;line-height:1.4"></div>
           <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:12px">არანაირი სპამი. გამოწერის გაუქმება ნებისმიერ დროს შეგიძლიათ.</p>
         </div>
       </div>
@@ -649,10 +653,66 @@
       });
     });
 
-    function handleNewsletter(e) {
+    async function handleNewsletter(e) {
       e.preventDefault();
-      showToast("Welcome! You're now subscribed.");
-  document.getElementById('newsletterEmail').value = '';
+      const form = e.target;
+      const btn = document.getElementById('newsletterBtn');
+      const btnText = document.getElementById('newsletterBtnText');
+      const statusDiv = document.getElementById('newsletterStatus');
+      const emailInput = document.getElementById('newsletterEmail');
+      const isEn = (localStorage.getItem('fhz_lang') || 'ge') === 'en';
+
+      if (btn) btn.disabled = true;
+      if (btnText) btnText.textContent = isEn ? 'Subscribing...' : 'იგზავნება...';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          if (emailInput) emailInput.value = '';
+          const successMsg = isEn
+            ? "Welcome! You're now subscribed to our newsletter."
+            : "მოგესალმებით! თქვენ წარმატებით გამოიწერეთ სიახლეები.";
+          showToast(successMsg);
+          if (statusDiv) {
+            statusDiv.style.display = 'block';
+            statusDiv.style.color = 'var(--gold-light)';
+            statusDiv.innerHTML = `✓ ${successMsg}`;
+          }
+        } else {
+          const errorMsg = isEn
+            ? "Subscription failed. Please try again."
+            : "გამოწერა ვერ მოხერხდა. გთხოვთ სცადოთ მოგვიანებით.";
+          showToast(errorMsg);
+          if (statusDiv) {
+            statusDiv.style.display = 'block';
+            statusDiv.style.color = '#ff9999';
+            statusDiv.textContent = errorMsg;
+          }
+        }
+      } catch (err) {
+        const networkMsg = isEn
+          ? "Network error. Please try again."
+          : "ინტერნეტის შეცდომა. გთხოვთ სცადოთ მოგვიანებით.";
+        showToast(networkMsg);
+        if (statusDiv) {
+          statusDiv.style.display = 'block';
+          statusDiv.style.color = '#ff9999';
+          statusDiv.textContent = networkMsg;
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.textContent = isEn ? 'Subscribe' : 'გამოწერა';
+      }
+
+      return false;
     }
     // Parallax hero
     window.addEventListener('scroll', () => {

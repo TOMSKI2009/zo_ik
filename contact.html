@@ -114,44 +114,46 @@
         <h2 style="font-family:var(--font-serif);font-size:1.8rem;color:var(--walnut);margin-bottom:8px">მოგვწერეთ შეტყობინება</h2>
         <p style="color:var(--text-muted);margin-bottom:32px;font-size:.9rem">შეავსეთ ფორმა და ჩვენ მალევე დაგიკავშირდებით.</p>
 
-        <form id="contactForm" onsubmit="return handleContact(event)">
+        <form id="contactForm" action="https://formspree.io/f/mzeborek" method="POST" onsubmit="return handleContact(event)">
+          <input type="hidden" name="_subject" value="Contact Form Submission — Furniture House Zoik">
+          <div id="contactStatus" style="display:none;margin-bottom:24px;padding:16px 20px;border-radius:var(--radius-md);font-size:.95rem;line-height:1.5"></div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="firstName">სახელი *</label>
-              <input type="text" id="firstName" class="form-control" placeholder="Marcus" required>
+              <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Marcus" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="lastName">გვარი *</label>
-              <input type="text" id="lastName" class="form-control" placeholder="Johnson" required>
+              <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Johnson" required>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label" for="email">ელ. ფოსტა *</label>
-            <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+            <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="phone">ტელეფონი</label>
-            <input type="tel" id="phone" class="form-control" placeholder="+1 (212) 555-0000">
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (212) 555-0000">
           </div>
           <div class="form-group">
             <label class="form-label" for="subject">თემა *</label>
-            <select id="subject" class="form-control sort-select" required style="padding:14px 18px;-webkit-appearance:auto;appearance:auto;background-image:none">
+            <select id="subject" name="subject" class="form-control sort-select" required style="padding:14px 18px;-webkit-appearance:auto;appearance:auto;background-image:none">
               <option value="">აირჩიეთ თემა...</option>
-              <option>კითხვა პროდუქტზე</option>
-              <option>შეკვეთის სტატუსი</option>
-              <option>ინტერიერის დიზაინის კონსულტაცია</option>
-              <option>ინდივიდუალური შეკვეთა</option>
-              <option>დაბრუნება და გარანტია</option>
-              <option>ზოგადი კითხვა</option>
+              <option value="Product Inquiry">კითხვა პროდუქტზე</option>
+              <option value="Order Status">შეკვეთის სტატუსი</option>
+              <option value="Interior Design Consultation">ინტერიერის დიზაინის კონსულტაცია</option>
+              <option value="Custom Order">ინდივიდუალური შეკვეთა</option>
+              <option value="Returns & Warranty">დაბრუნება და გარანტია</option>
+              <option value="General Question">ზოგადი კითხვა</option>
             </select>
           </div>
           <div class="form-group">
             <label class="form-label" for="message">შეტყობინება *</label>
-            <textarea id="message" class="form-control" placeholder="გვითხარით რით შეგვიძლია დაგეხმაროთ..." required></textarea>
+            <textarea id="message" name="message" class="form-control" placeholder="გვითხარით რით შეგვიძლია დაგეხმაროთ..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width:100%">
+          <button type="submit" id="contactSubmitBtn" class="btn btn-primary btn-lg" style="width:100%">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            შეტყობინების გაგზავნა
+            <span id="contactBtnText">შეტყობინების გაგზავნა</span>
           </button>
         </form>
 
@@ -309,10 +311,74 @@ document.querySelectorAll('.accordion-header').forEach(h=>{
   });
 });
 
-function handleContact(e){
+async function handleContact(e){
   e.preventDefault();
-  showToast("Message sent! We'll be in touch shortly.");
-  e.target.reset();
+  const form = e.target;
+  const submitBtn = document.getElementById('contactSubmitBtn');
+  const btnText = document.getElementById('contactBtnText');
+  const statusDiv = document.getElementById('contactStatus');
+  const isEn = (localStorage.getItem('fhz_lang') || 'ge') === 'en';
+
+  if (submitBtn) submitBtn.disabled = true;
+  if (btnText) btnText.textContent = isEn ? 'Sending...' : 'იგზავნება...';
+
+  try {
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      form.reset();
+      const successMsg = isEn
+        ? "Thank you! Your message has been sent successfully. We'll be in touch shortly."
+        : "მადლობა! თქვენი შეტყობინება წარმატებით გაიგზავნა. მალე დაგიკავშირდებით.";
+      
+      showToast(successMsg);
+
+      if (statusDiv) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = 'rgba(122, 140, 126, 0.15)';
+        statusDiv.style.border = '1px solid var(--sage)';
+        statusDiv.style.color = 'var(--walnut)';
+        statusDiv.innerHTML = `<strong>✓</strong> ${successMsg}`;
+        statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } else {
+      const data = await response.json().catch(() => ({}));
+      const errorMsg = isEn
+        ? (data.errors && data.errors.length ? data.errors.map(err => err.message).join(', ') : "Oops! There was a problem submitting your form. Please try again.")
+        : "დაფიქსირდა შეცდომა შეტყობინების გაგზავნისას. გთხოვთ სცადოთ თავიდან.";
+      showToast(errorMsg);
+      if (statusDiv) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = 'rgba(217, 83, 79, 0.15)';
+        statusDiv.style.border = '1px solid #d9534f';
+        statusDiv.style.color = '#a94442';
+        statusDiv.textContent = errorMsg;
+      }
+    }
+  } catch (err) {
+    const networkMsg = isEn
+      ? "Network error. Please check your connection and try again."
+      : "ინტერნეტის შეცდომა. გთხოვთ შეამოწმოთ კავშირი და სცადოთ თავიდან.";
+    showToast(networkMsg);
+    if (statusDiv) {
+      statusDiv.style.display = 'block';
+      statusDiv.style.background = 'rgba(217, 83, 79, 0.15)';
+      statusDiv.style.border = '1px solid #d9534f';
+      statusDiv.style.color = '#a94442';
+      statusDiv.textContent = networkMsg;
+    }
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+    if (btnText) btnText.textContent = isEn ? 'Send Message' : 'შეტყობინების გაგზავნა';
+  }
+
   return false;
 }
 </script>
